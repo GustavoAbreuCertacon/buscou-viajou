@@ -1,13 +1,14 @@
+import Link from 'next/link';
 import type { Metadata } from 'next';
-import { Bus, Wallet, Users } from 'lucide-react';
+import { Bus, Wallet, Users, ArrowRight, ShieldCheck, FileText, CheckCircle2 } from 'lucide-react';
 import { Navbar } from '@/components/layout/navbar';
 import { Footer } from '@/components/layout/footer';
 import { BicolorHeading, BicolorHighlight } from '@/components/ui/bicolor-heading';
+import { Button } from '@/components/ui/button';
 import { JourneyTag } from '@/components/ui/journey-tag';
 import { CartographicTicks } from '@/components/feature/landing/cartographic-ticks';
 import { SectionEyebrow } from '@/components/feature/landing/section-eyebrow';
 import { getCurrentUser } from '@/lib/auth/get-current-user';
-import { LeadForm } from './lead-form';
 
 export const metadata: Metadata = {
   title: 'Seja Parceiro — Anuncie sua frota no Buscou Viajou',
@@ -92,27 +93,57 @@ export default async function SejaParceiroPage() {
                 </div>
               </div>
 
-              {/* Form column */}
+              {/* CTA column — direciona pro cadastro completo */}
               <div className="lg:col-span-5">
                 <div className="rounded-bv-lg bg-white border border-bv-navy/12 shadow-bv-md p-bv-6 md:p-bv-7">
                   <header className="mb-bv-5">
                     <p className="text-caption font-bold uppercase tracking-[0.14em] text-bv-green-700">
-                      Cadastro de interesse
+                      Cadastro completo
                     </p>
                     <BicolorHeading as="h2" size="h3" className="mt-bv-2">
-                      <BicolorHighlight>Quero</BicolorHighlight> anunciar.
+                      <BicolorHighlight>4 etapas.</BicolorHighlight> 100% online.
                     </BicolorHeading>
                     <p className="mt-bv-2 text-body-sm text-bv-navy/72">
-                      Deixe seus dados — entramos em contato em até 2 dias úteis.
+                      Empresa, responsável, frota e aceite do código de conduta.
+                      Aprovação em até 48h úteis.
                     </p>
                   </header>
 
-                  <LeadForm />
+                  <ol className="space-y-bv-3 mb-bv-5">
+                    {[
+                      { num: '01', icon: Users, label: 'Dados da empresa' },
+                      { num: '02', icon: ShieldCheck, label: 'Responsável legal' },
+                      { num: '03', icon: FileText, label: 'Documentos e frota' },
+                      { num: '04', icon: CheckCircle2, label: 'Aceite do código de conduta' },
+                    ].map(({ num, icon: Icon, label }) => (
+                      <li key={num} className="flex items-center gap-bv-3 text-body-sm text-bv-navy/80">
+                        <span className="font-mono text-caption font-bold text-bv-green-700 w-6 shrink-0">
+                          {num}
+                        </span>
+                        <Icon size={16} strokeWidth={2} className="text-bv-navy/48 shrink-0" />
+                        <span>{label}</span>
+                      </li>
+                    ))}
+                  </ol>
+
+                  <Button asChild variant="accent" size="lg" fullWidth iconRight={<ArrowRight size={16} />}>
+                    <Link href="/seja-parceiro/cadastro">Começar cadastro</Link>
+                  </Button>
+
+                  <p className="mt-bv-3 text-caption text-bv-navy/60 text-center">
+                    Já é parceiro?{' '}
+                    <Link
+                      href="/empresa/login"
+                      className="font-semibold text-bv-green hover:text-bv-green-700 underline underline-offset-4"
+                    >
+                      Acessar painel
+                    </Link>
+                  </p>
                 </div>
 
                 <p className="mt-bv-4 text-caption text-bv-navy/72 text-center">
-                  Esta é uma página de cadastro de interesse — o painel da
-                  empresa entra em produção na próxima fase.
+                  Documentos (Contrato Social, Alvará, ANTT) podem ser enviados depois,
+                  durante a análise.
                 </p>
               </div>
             </div>

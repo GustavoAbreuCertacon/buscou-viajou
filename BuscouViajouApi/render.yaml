@@ -14,7 +14,8 @@ services:
     region: oregon              # ou frankfurt, ohio, singapore
     plan: free                  # 750h/mês free, cold start ~30s após 15min inativo
     rootDir: BuscouViajouApi
-    buildCommand: npm install && npm run build
+    # NODE_ENV=production faz npm pular devDependencies por default. Forçamos --include=dev pra @nestjs/cli ficar disponível durante o build.
+    buildCommand: npm install --include=dev && npm run build
     startCommand: node dist/main.js
     healthCheckPath: /v1/health
     autoDeploy: true            # deploy a cada push na main

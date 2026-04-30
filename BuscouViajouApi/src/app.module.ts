@@ -9,6 +9,10 @@ import { VehiclesModule } from './modules/vehicles/vehicles.module';
 import { QuotesModule } from './modules/quotes/quotes.module';
 import { BookingsModule } from './modules/bookings/bookings.module';
 import { TicketsModule } from './modules/tickets/tickets.module';
+import { UploadsModule } from './modules/uploads/uploads.module';
+import { PartnersModule } from './modules/partners/partners.module';
+import { ComplianceModule } from './modules/compliance/compliance.module';
+import { CompanyModule } from './modules/company/company.module';
 
 @Module({
   imports: [
@@ -22,6 +26,10 @@ import { TicketsModule } from './modules/tickets/tickets.module';
     QuotesModule,
     BookingsModule,
     TicketsModule,
+    UploadsModule,
+    PartnersModule,
+    ComplianceModule,
+    CompanyModule,
   ],
 })
 export class AppModule {}

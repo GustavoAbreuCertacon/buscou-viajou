@@ -12,10 +12,14 @@ type LogoVariant =
   | 'monogramWhite'     // só BV branco
   | 'monogramBlack';    // só BV preto
 
+// Aspects medidos após `sharp.trim()` nos PNGs novos (Material Id v2):
+// - lockups horizontais (color/black/white): ~5.5
+// - lockup empilhado: ~1.79
+// - monograma BV color: ~1.66
 const VARIANTS: Record<LogoVariant, { src: string; aspect: number; alt: string }> = {
   fullColor: {
-    src: '/brand/logo-full-color.svg',
-    aspect: 3000 / 1000,
+    src: '/brand/logo-color-horizontal.png',
+    aspect: 4988 / 911,
     alt: 'Buscou Viajou',
   },
   whiteOnNavy: {
@@ -30,17 +34,17 @@ const VARIANTS: Record<LogoVariant, { src: string; aspect: number; alt: string }
   },
   black: {
     src: '/brand/logo-black.png',
-    aspect: 1200 / 500,
+    aspect: 5083 / 930,
     alt: 'Buscou Viajou',
   },
   white: {
     src: '/brand/logo-white.png',
-    aspect: 1200 / 500,
+    aspect: 5094 / 927,
     alt: 'Buscou Viajou',
   },
   monogramFullColor: {
     src: '/brand/monogram-bv-full-color.png',
-    aspect: 1,
+    aspect: 2744 / 1656,
     alt: 'BV',
   },
   monogramWhite: {

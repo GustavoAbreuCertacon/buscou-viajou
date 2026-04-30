@@ -475,6 +475,57 @@ export type Database = {
           },
         ]
       }
+      company_compliance_acceptances: {
+        Row: {
+          accepted_at: string
+          accepted_by_user_id: string
+          company_id: string
+          document_hash: string | null
+          document_url: string | null
+          document_version: string
+          id: string
+          ip_address: string | null
+          user_agent: string | null
+        }
+        Insert: {
+          accepted_at?: string
+          accepted_by_user_id: string
+          company_id: string
+          document_hash?: string | null
+          document_url?: string | null
+          document_version: string
+          id?: string
+          ip_address?: string | null
+          user_agent?: string | null
+        }
+        Update: {
+          accepted_at?: string
+          accepted_by_user_id?: string
+          company_id?: string
+          document_hash?: string | null
+          document_url?: string | null
+          document_version?: string
+          id?: string
+          ip_address?: string | null
+          user_agent?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "company_compliance_acceptances_accepted_by_user_id_fkey"
+            columns: ["accepted_by_user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "company_compliance_acceptances_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       demand_snapshots: {
         Row: {
           available_vehicles: number
@@ -928,6 +979,8 @@ export type Database = {
       }
       partner_applications: {
         Row: {
+          acceptance_ip: string | null
+          acceptance_user_agent: string | null
           additional_docs_request: string | null
           address_city: string | null
           address_complement: string | null
@@ -939,6 +992,8 @@ export type Database = {
           approved_monthly_fee: number | null
           approved_transaction_fee: number | null
           cnpj: string
+          code_of_conduct_accepted_at: string | null
+          code_of_conduct_version: string | null
           company_id: string | null
           company_phone: string | null
           created_at: string
@@ -963,6 +1018,8 @@ export type Database = {
           vehicle_types: string[] | null
         }
         Insert: {
+          acceptance_ip?: string | null
+          acceptance_user_agent?: string | null
           additional_docs_request?: string | null
           address_city?: string | null
           address_complement?: string | null
@@ -974,6 +1031,8 @@ export type Database = {
           approved_monthly_fee?: number | null
           approved_transaction_fee?: number | null
           cnpj: string
+          code_of_conduct_accepted_at?: string | null
+          code_of_conduct_version?: string | null
           company_id?: string | null
           company_phone?: string | null
           created_at?: string
@@ -998,6 +1057,8 @@ export type Database = {
           vehicle_types?: string[] | null
         }
         Update: {
+          acceptance_ip?: string | null
+          acceptance_user_agent?: string | null
           additional_docs_request?: string | null
           address_city?: string | null
           address_complement?: string | null
@@ -1009,6 +1070,8 @@ export type Database = {
           approved_monthly_fee?: number | null
           approved_transaction_fee?: number | null
           cnpj?: string
+          code_of_conduct_accepted_at?: string | null
+          code_of_conduct_version?: string | null
           company_id?: string | null
           company_phone?: string | null
           created_at?: string
