@@ -53,7 +53,8 @@ export class CompanyController {
   async amenities() {
     const { data, error } = await this.supabase.admin
       .from('amenities')
-      .select('id, name, icon, description')
+      .select('id, name, icon')
+      .eq('is_active', true)
       .order('name');
     if (error) throw error;
     return { data: data ?? [] };
