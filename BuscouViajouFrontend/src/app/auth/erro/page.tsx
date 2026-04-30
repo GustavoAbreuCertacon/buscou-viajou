@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { AlertCircle } from 'lucide-react';
 import { Navbar } from '@/components/layout/navbar';
+import { Footer } from '@/components/layout/footer';
 import { BicolorHeading } from '@/components/ui/bicolor-heading';
 import { Button } from '@/components/ui/button';
 
@@ -31,7 +32,7 @@ export default async function AuthErrorPage({
   return (
     <>
       <Navbar />
-      <main id="main" className="bv-canvas min-h-[calc(100vh-4rem)] flex items-center justify-center px-bv-4">
+      <main id="main" className="bv-canvas flex items-center justify-center py-bv-9 px-bv-4">
         <div className="max-w-md text-center space-y-bv-5 bg-white rounded-bv-lg shadow-bv-md p-bv-7">
           <div className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-[#FCE8E8] text-bv-danger mx-auto">
             <AlertCircle className="h-8 w-8" strokeWidth={2} />
@@ -48,6 +49,7 @@ export default async function AuthErrorPage({
           </div>
         </div>
       </main>
+      <Footer />
     </>
   );
 }

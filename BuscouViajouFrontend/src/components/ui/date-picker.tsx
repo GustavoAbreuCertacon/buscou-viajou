@@ -19,6 +19,8 @@ export interface DatePickerProps {
   fromDate?: Date;
   toDate?: Date;
   className?: string;
+  /** Override classes do botão-trigger (pra controlar altura/tipografia em variantes maiores) */
+  triggerClassName?: string;
   /** Voice da marca: "Quando?", "Data de ida", etc. */
   ariaLabel?: string;
   id?: string;
@@ -33,6 +35,7 @@ export function DatePicker({
   fromDate,
   toDate,
   className,
+  triggerClassName,
   ariaLabel,
   id,
 }: DatePickerProps) {
@@ -63,6 +66,7 @@ export function DatePicker({
               !value && 'text-bv-navy/48',
               value && 'text-bv-navy',
               className,
+              triggerClassName,
             )}
           >
             <CalendarIcon className="h-4 w-4 shrink-0 text-bv-navy/72" />

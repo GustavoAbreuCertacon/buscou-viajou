@@ -13,7 +13,7 @@ export class HomePage {
 
   constructor(page: Page) {
     this.page = page;
-    this.heading = page.getByRole('heading', { name: /Encontre sua próxima viagem/i });
+    this.heading = page.getByRole('heading', { name: /Compare fretamentos/i });
     this.originInput = page.locator('#origin');
     this.destinationInput = page.locator('#destination');
     this.dateButton = page.locator('#date');

@@ -126,6 +126,21 @@ module.exports = {
         'bv-base': '250ms',
         'bv-slow': '400ms',
       },
+
+      keyframes: {
+        'accordion-down': {
+          from: { height: '0' },
+          to: { height: 'var(--radix-accordion-content-height)' },
+        },
+        'accordion-up': {
+          from: { height: 'var(--radix-accordion-content-height)' },
+          to: { height: '0' },
+        },
+      },
+      animation: {
+        'accordion-down': 'accordion-down 250ms cubic-bezier(0.2, 0.8, 0.2, 1)',
+        'accordion-up':   'accordion-up   200ms cubic-bezier(0.2, 0.8, 0.2, 1)',
+      },
     },
   },
   plugins: [

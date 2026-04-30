@@ -3,6 +3,7 @@
 import * as React from 'react';
 import { AlertOctagon, RefreshCw } from 'lucide-react';
 import { Navbar } from '@/components/layout/navbar';
+import { Footer } from '@/components/layout/footer';
 import { BicolorHeading, BicolorHighlight } from '@/components/ui/bicolor-heading';
 import { Button } from '@/components/ui/button';
 
@@ -20,7 +21,7 @@ export default function ErrorBoundary({
   return (
     <>
       <Navbar />
-      <main id="main" className="bv-canvas min-h-[calc(100vh-4rem)] flex items-center justify-center px-bv-4">
+      <main id="main" className="bv-canvas flex items-center justify-center py-bv-9 px-bv-4">
         <div className="max-w-md text-center space-y-bv-5 bg-white rounded-bv-lg shadow-bv-md p-bv-7">
           <div className="inline-flex h-20 w-20 items-center justify-center rounded-full bg-[#FCE8E8] text-bv-danger mx-auto">
             <AlertOctagon className="h-10 w-10" strokeWidth={1.5} />
@@ -50,6 +51,7 @@ export default function ErrorBoundary({
           </div>
         </div>
       </main>
+      <Footer />
     </>
   );
 }

@@ -68,26 +68,29 @@ export function SearchForm({ initialValues, variant = 'hero', className, onSubmi
       onSubmit(values);
       return;
     }
+    // Backend's geocoder accepts only the city name, not "Cidade, UF" format
+    // returned by the autocomplete label. Strip suffix before submit.
+    const cleanCity = (s: string) => s.split(',')[0].trim();
     const params = new URLSearchParams({
-      origem: origin,
-      destino: destination,
+      origem: cleanCity(origin),
+      destino: cleanCity(destination),
       data: date!.toISOString().slice(0, 10),
       passageiros: String(passengers),
     });
     router.push(`/busca?${params.toString()}`);
   }
 
-  const layout =
-    variant === 'hero'
-      ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-[1fr_1fr_1fr_auto_auto] gap-bv-4'
-      : 'grid-cols-2 md:grid-cols-5 gap-bv-3 items-end';
+  const isHero = variant === 'hero';
+  const layout = isHero
+    ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-[1fr_1fr_1fr_auto_auto] gap-bv-4'
+    : 'grid-cols-2 md:grid-cols-5 gap-bv-3 items-end';
 
   return (
     <form
       onSubmit={handleSubmit}
       className={cn(
         'bg-white rounded-bv-md border border-bv-navy/8 shadow-bv-md',
-        variant === 'hero' ? 'p-bv-5 md:p-bv-6' : 'p-bv-4',
+        isHero ? 'p-bv-5 md:p-bv-6' : 'p-bv-4',
         className,
       )}
       aria-label="Buscar viagens"
@@ -155,7 +158,7 @@ export function SearchForm({ initialValues, variant = 'hero', className, onSubmi
           <Button
             type="submit"
             variant="accent"
-            size={variant === 'hero' ? 'lg' : 'md'}
+            size={isHero ? 'lg' : 'md'}
             iconLeft={<Search className="h-4 w-4" />}
             fullWidth
             className="lg:w-auto"

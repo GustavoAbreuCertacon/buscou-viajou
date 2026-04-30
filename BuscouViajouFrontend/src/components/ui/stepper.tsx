@@ -18,6 +18,8 @@ export interface StepperProps {
   /** Texto pequeno explicativo, ex: "passageiros" */
   unitLabel?: string;
   className?: string;
+  /** Override classes do bloco de controle (use pra altura maior em hero) */
+  controlClassName?: string;
   ariaLabel?: string;
   disabled?: boolean;
 }
@@ -31,6 +33,7 @@ export function Stepper({
   label,
   unitLabel,
   className,
+  controlClassName,
   ariaLabel,
   disabled,
 }: StepperProps) {
@@ -45,7 +48,7 @@ export function Stepper({
       {label && (
         <span className="text-body-sm font-semibold text-bv-navy">{label}</span>
       )}
-      <div className="inline-flex items-center bg-white rounded-bv-md border border-bv-navy/16 h-11 min-h-[44px]">
+      <div className={cn('inline-flex items-center bg-white rounded-bv-md border border-bv-navy/16 h-11 min-h-[44px]', controlClassName)}>
         <button
           type="button"
           onClick={decrement}

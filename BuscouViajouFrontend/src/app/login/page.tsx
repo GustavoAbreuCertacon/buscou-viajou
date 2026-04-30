@@ -1,4 +1,5 @@
 import { Navbar } from '@/components/layout/navbar';
+import { Footer } from '@/components/layout/footer';
 import { LoginForm } from './login-form';
 import { BicolorHeading } from '@/components/ui/bicolor-heading';
 
@@ -15,7 +16,7 @@ export default async function LoginPage({
   return (
     <>
       <Navbar />
-      <main id="main" className="bv-canvas min-h-[calc(100vh-4rem)] flex items-start md:items-center justify-center py-bv-7 px-bv-4">
+      <main id="main" className="bv-canvas flex items-start md:items-center justify-center py-bv-9 px-bv-4">
         <div className="w-full max-w-md">
           <div className="rounded-bv-lg bg-white shadow-bv-lg p-bv-6 md:p-bv-7">
             <header className="mb-bv-5">
@@ -33,6 +34,7 @@ export default async function LoginPage({
           </div>
         </div>
       </main>
+      <Footer />
     </>
   );
 }

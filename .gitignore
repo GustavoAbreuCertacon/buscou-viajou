@@ -20,6 +20,9 @@ build/
 .vscode/
 .idea/
 
+# Claude Code local config
+.claude/
+
 # Tests
 coverage/
 playwright-report/

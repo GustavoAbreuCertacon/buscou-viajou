@@ -79,6 +79,43 @@ export type BookingStatus =
   | 'NO_SHOW_CLIENT'
   | 'NO_SHOW_COMPANY';
 
+export interface Company {
+  id: string;
+  name: string;
+  logo_url: string | null;
+  average_rating: number;
+  total_reviews: number;
+  operating_regions: string[];
+  description: string | null;
+}
+
+export interface CompaniesResponse {
+  data: Company[];
+}
+
+export interface ReviewClient {
+  first_name: string;
+  last_initial: string | null;
+}
+
+export interface CompanyReview {
+  id: string;
+  overall_rating: number;
+  punctuality_rating: number;
+  vehicle_rating: number;
+  driver_rating: number;
+  value_rating: number;
+  comment: string | null;
+  created_at: string;
+  client: ReviewClient;
+  vehicle: { id: string; model: string };
+  response: { response: string; created_at: string } | null;
+}
+
+export interface ReviewsResponse {
+  data: CompanyReview[];
+}
+
 export interface Profile {
   id: string;
   email: string;

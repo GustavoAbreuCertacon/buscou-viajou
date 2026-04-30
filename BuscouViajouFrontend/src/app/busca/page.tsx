@@ -4,7 +4,10 @@ import { Navbar } from '@/components/layout/navbar';
 import { Footer } from '@/components/layout/footer';
 import { SearchResults } from './search-results';
 import { SearchForm } from '@/components/feature/search-form';
-import { Skeleton } from '@/components/ui/skeleton';
+import {
+  ResultCardSkeleton,
+  FiltersSkeleton,
+} from '@/components/feature/search/result-card-skeleton';
 import { BicolorHeading } from '@/components/ui/bicolor-heading';
 
 export const dynamic = 'force-dynamic';
@@ -74,14 +77,22 @@ export default async function SearchPage({ searchParams }: PageProps) {
 
 function ResultsSkeleton() {
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-bv-5">
-      <Skeleton className="h-[600px]" />
-      <div className="space-y-bv-4">
-        <Skeleton shape="text" className="w-1/3 h-6" />
-        {[0, 1, 2].map((i) => (
-          <Skeleton key={i} className="h-[180px]" />
-        ))}
+    <>
+      <header className="mb-bv-6 space-y-bv-3">
+        <div className="bv-skeleton h-4 w-32 rounded-bv-sm bg-bv-navy-50" aria-hidden />
+        <div className="bv-skeleton h-10 w-2/3 rounded-bv-sm bg-bv-navy-50" aria-hidden />
+        <div className="bv-skeleton h-5 w-1/2 rounded-bv-sm bg-bv-navy-50" aria-hidden />
+      </header>
+      <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-bv-5">
+        <div className="hidden lg:block">
+          <FiltersSkeleton />
+        </div>
+        <div className="space-y-bv-4">
+          {[0, 1, 2].map((i) => (
+            <ResultCardSkeleton key={i} />
+          ))}
+        </div>
       </div>
-    </div>
+    </>
   );
 }

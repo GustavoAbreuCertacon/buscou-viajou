@@ -14,7 +14,7 @@ test.describe('@responsive — landing renderiza em vários viewports', () => {
 
       // Heading principal sempre visível
       await expect(
-        page.getByRole('heading', { name: /Encontre sua próxima viagem/i }),
+        page.getByRole('heading', { name: /Compare fretamentos/i }),
       ).toBeVisible();
 
       // SearchForm presente em qualquer breakpoint

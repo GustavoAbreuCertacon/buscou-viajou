@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { useRouter } from 'next/navigation';
-import { Bus, Users } from 'lucide-react';
+import { Bus, Users, Info, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { PriceBreakdown } from '@/components/feature';
 import { formatCurrency, pluralCapacity } from '@/lib/utils/format';
@@ -23,9 +23,15 @@ interface Props {
 }
 
 /**
- * Sidebar de preço + CTA "Solicitar reserva".
- * Em produção: gera lockedQuote → POST /v1/bookings → /reserva/[id]
- * Pra demo: salva intent no localStorage e redireciona.
+ * Sidebar de preço + CTA "Solicitar orçamento".
+ * Modelo de negócio: comparador puro. A Buscou Viajou não fecha a reserva —
+ * encaminha o lead pra empresa parceira finalizar diretamente.
+ *
+ * Fluxo:
+ *  - Anônimo → salva intent + login com magic link
+ *  - Logado sem cotação travada (entrou direto na URL) → volta pra busca
+ *    (precisa data + passageiros pra empresa cotar de verdade)
+ *  - Logado com cotação travada (Fase 2) → POST de lead pro CRM da empresa
  */
 export function ReserveCta({
   vehicleId,
@@ -44,7 +50,6 @@ export function ReserveCta({
 
   function handleReserve() {
     if (!isLoggedIn) {
-      // Salva intent
       if (typeof window !== 'undefined') {
         localStorage.setItem(
           'pendingBookingIntent',
@@ -54,9 +59,13 @@ export function ReserveCta({
       router.push(`/login?next=/veiculo/${vehicleId}`);
       return;
     }
-    toast.info('Em breve', {
+    toast.info('Falta a cotação', {
       description:
-        'Pra concluir a reserva é preciso passar pela busca pra obter uma cotação travada. Volte a /busca e selecione esse veículo.',
+        'Volte à busca informando data e passageiros — assim a empresa cota com precisão e você é conectado(a) com ela.',
+      action: {
+        label: 'Ir pra busca',
+        onClick: () => router.push('/busca'),
+      },
     });
   }
 
@@ -67,7 +76,7 @@ export function ReserveCta({
           {formatCurrency(finalPrice)}
         </p>
         <p className="mt-bv-1 text-body-sm text-bv-navy/72">
-          total da viagem (estimado · {distanceKm ?? '—'} km)
+          estimativa · {distanceKm ?? '—'} km · valor final é confirmado pela empresa
         </p>
       </div>
 
@@ -80,11 +89,25 @@ export function ReserveCta({
         minDepartureCost={minDepartureCost}
       />
 
-      <Button variant="accent" size="lg" fullWidth onClick={handleReserve}>
-        Solicitar reserva
+      <Button
+        variant="accent"
+        size="lg"
+        fullWidth
+        onClick={handleReserve}
+        iconRight={<ArrowRight className="h-4 w-4" />}
+      >
+        Solicitar orçamento
       </Button>
 
-      <ul className="space-y-bv-2 text-body-sm text-bv-navy/72">
+      <p className="flex items-start gap-bv-2 text-caption text-bv-navy/72 leading-relaxed">
+        <Info size={14} strokeWidth={2.5} className="text-bv-green shrink-0 mt-0.5" aria-hidden />
+        <span>
+          A reserva e o pagamento são finalizados <strong className="text-bv-navy">direto com {companyName}</strong>.
+          A Buscou Viajou conecta vocês.
+        </span>
+      </p>
+
+      <ul className="space-y-bv-2 text-body-sm text-bv-navy/72 pt-bv-3 border-t border-bv-navy/8">
         <li className="inline-flex items-center gap-2 w-full">
           <Bus size={14} className="text-bv-navy/48" />
           <span className="truncate">{model}</span>

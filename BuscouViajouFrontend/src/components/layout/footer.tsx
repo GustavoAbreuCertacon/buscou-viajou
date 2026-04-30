@@ -23,26 +23,35 @@ const COLUMNS: FooterColumn[] = [
     title: 'Buscou',
     links: [
       { label: 'Como funciona', href: '/#como-funciona' },
+      { label: 'Perguntas frequentes', href: '/#duvidas' },
       { label: 'Termos de uso', href: '/termos' },
+      { label: 'Para empresas', href: '/seja-parceiro' },
     ],
   },
   {
     title: 'Empresa',
     links: [
       { label: 'Sobre nós', href: '/sobre' },
-      { label: 'Blog', href: '/blog' },
-      { label: 'Privacidade', href: '/privacidade' },
+      { label: 'Privacidade (LGPD)', href: '/termos#dados' },
+      { label: 'Cancelamentos', href: '/termos#cancelamentos' },
     ],
   },
   {
     title: 'Suporte',
     links: [
       { label: 'Central de ajuda', href: '/ajuda' },
-      { label: 'Contato', href: '/contato' },
+      { label: 'Contato', href: 'mailto:contato@buscouviajou.demo' },
       { label: 'Cookies', href: '/cookies' },
     ],
   },
 ];
+
+/**
+ * Aviso legal exigido em todas as páginas — clarifica o papel de
+ * intermediação digital. Conteúdo definido pelo cliente / jurídico.
+ */
+const LEGAL_DISCLAIMER =
+  'A Buscou Viajou é uma plataforma de intermediação digital e comparação de preços. Não prestamos serviços de transporte ou turismo. A responsabilidade pela prestação do serviço contratado é exclusiva da empresa parceira escolhida pelo usuário.';
 
 export interface FooterProps {
   className?: string;
@@ -87,7 +96,20 @@ export function Footer({ className, columns = COLUMNS }: FooterProps) {
           ))}
         </div>
 
-        <div className="mt-bv-7 pt-bv-5 border-t border-white/12 flex flex-col-reverse md:flex-row md:items-center md:justify-between gap-bv-3">
+        {/* Aviso legal — exigido em todas as páginas */}
+        <aside
+          aria-label="Aviso legal"
+          className="mt-bv-7 pt-bv-5 border-t border-white/12"
+        >
+          <p className="text-caption font-bold uppercase tracking-[0.18em] text-bv-green-300">
+            Aviso legal
+          </p>
+          <p className="mt-bv-2 text-body-sm text-white/72 leading-relaxed max-w-4xl">
+            {LEGAL_DISCLAIMER}
+          </p>
+        </aside>
+
+        <div className="mt-bv-5 pt-bv-4 border-t border-white/12 flex flex-col-reverse md:flex-row md:items-center md:justify-between gap-bv-3">
           <p className="text-caption text-white/60 italic">
             Manual da Marca · Buscou Viajou
           </p>

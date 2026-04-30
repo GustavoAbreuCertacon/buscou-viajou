@@ -124,7 +124,7 @@ export function Navbar({ links = DEFAULT_LINKS, user, className }: NavbarProps) 
                     <div className="text-body-sm text-bv-navy/72">Olá, {user.firstName}</div>
                     <Button asChild variant="primary" fullWidth>
                       <Link href="/minhas-viagens" onClick={() => setMobileOpen(false)}>
-                        Minhas viagens
+                        Minhas solicitações
                       </Link>
                     </Button>
                   </>

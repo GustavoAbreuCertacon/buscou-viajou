@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, Info } from 'lucide-react';
 import { Navbar } from '@/components/layout/navbar';
 import { Footer } from '@/components/layout/footer';
 import { BookingDetail } from './booking-detail';
@@ -61,8 +61,22 @@ export default async function BookingPage({
             className="inline-flex items-center gap-1 text-body-sm font-medium text-bv-navy/72 hover:text-bv-navy mb-bv-4"
           >
             <ArrowLeft size={14} strokeWidth={2.5} />
-            Voltar pras minhas viagens
+            Voltar pras minhas solicitações
           </Link>
+
+          {/* Disclaimer do modelo de negócio */}
+          <aside
+            role="note"
+            className="mb-bv-5 flex items-start gap-bv-3 rounded-bv-md border border-bv-navy/12 bg-bv-navy-50/40 p-bv-4"
+          >
+            <Info size={18} strokeWidth={2.5} className="text-bv-navy shrink-0 mt-0.5" aria-hidden />
+            <div className="text-body-sm text-bv-navy/80 leading-relaxed">
+              <strong className="text-bv-navy">Status da sua solicitação.</strong>{' '}
+              A finalização da reserva, pagamento e operação da viagem acontece
+              direto com a empresa parceira — a Buscou Viajou faz a ponte.
+              Em caso de dúvidas, fale com o suporte da empresa.
+            </div>
+          </aside>
 
           <BookingDetail booking={booking} />
         </div>
