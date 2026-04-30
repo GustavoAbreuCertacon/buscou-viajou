@@ -23,6 +23,8 @@ const COLUMNS: FooterColumn[] = [
     title: 'Buscou',
     links: [
       { label: 'Como funciona', href: '/#como-funciona' },
+      { label: 'Pra empresas', href: '/#para-empresas' },
+      { label: 'Painel da empresa', href: '/empresa/login' },
       { label: 'Termos de uso', href: '/termos' },
     ],
   },

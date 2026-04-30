@@ -38,6 +38,7 @@ export interface NavbarProps {
 
 const DEFAULT_LINKS: NavLink[] = [
   { label: 'Como funciona', href: '/#como-funciona' },
+  { label: 'Pra empresas', href: '/#para-empresas' },
 ];
 
 export function Navbar({ links = DEFAULT_LINKS, user, className }: NavbarProps) {

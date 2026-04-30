@@ -19,3 +19,8 @@ export { VehicleGallery } from './vehicle-gallery';
 export { PriceBreakdown } from './price-breakdown';
 export { RouteMap, type RouteMapProps } from './route-map';
 export { TicketViewer, type TicketViewerProps } from './ticket-viewer';
+
+export { CompanyHeader } from './company-header';
+export { StatCard } from './stat-card';
+export { FleetVehicleCard } from './fleet-vehicle-card';
+export { CodeOfConductViewer } from './code-of-conduct-viewer';

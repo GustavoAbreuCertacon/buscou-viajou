@@ -4,11 +4,15 @@ import { createServerClient, type CookieOptions } from '@supabase/ssr';
 /**
  * Middleware de proteção:
  *  - Atualiza cookies de sessão Supabase a cada request
- *  - Redireciona auth-only routes (/minhas-viagens, /reserva/*) pra /login se sem sessão
+ *  - Redireciona auth-only routes (/minhas-viagens, /reserva/*, /empresa) pra login se sem sessão
  *  - Redireciona /login pra /minhas-viagens se já logado
+ *  - Validação fina de role (cliente vs empresa) acontece no Server Component
+ *    de cada página (não aqui pra evitar query de banco em todo request)
  */
 
-const PROTECTED_PREFIXES = ['/minhas-viagens', '/reserva', '/conta'];
+const CLIENT_PROTECTED_PREFIXES = ['/minhas-viagens', '/reserva', '/conta'];
+const COMPANY_PROTECTED_PREFIXES = ['/empresa'];
+const COMPANY_PUBLIC_ROUTES = ['/empresa/login'];
 const PUBLIC_ONLY_PREFIXES = ['/login'];
 
 export async function middleware(request: NextRequest) {
@@ -39,13 +43,30 @@ export async function middleware(request: NextRequest) {
   } = await supabase.auth.getUser();
 
   const path = request.nextUrl.pathname;
-  const isProtected = PROTECTED_PREFIXES.some((p) => path === p || path.startsWith(`${p}/`));
-  const isPublicOnly = PUBLIC_ONLY_PREFIXES.some((p) => path === p || path.startsWith(`${p}/`));
 
-  if (isProtected && !user) {
+  const isClientProtected = CLIENT_PROTECTED_PREFIXES.some(
+    (p) => path === p || path.startsWith(`${p}/`),
+  );
+  const isCompanyPublic = COMPANY_PUBLIC_ROUTES.some(
+    (p) => path === p || path.startsWith(`${p}/`),
+  );
+  const isCompanyProtected =
+    !isCompanyPublic &&
+    COMPANY_PROTECTED_PREFIXES.some((p) => path === p || path.startsWith(`${p}/`));
+  const isPublicOnly = PUBLIC_ONLY_PREFIXES.some(
+    (p) => path === p || path.startsWith(`${p}/`),
+  );
+
+  if (isClientProtected && !user) {
     const url = request.nextUrl.clone();
     url.pathname = '/login';
     url.searchParams.set('next', path + request.nextUrl.search);
+    return NextResponse.redirect(url);
+  }
+
+  if (isCompanyProtected && !user) {
+    const url = request.nextUrl.clone();
+    url.pathname = '/empresa/login';
     return NextResponse.redirect(url);
   }
 

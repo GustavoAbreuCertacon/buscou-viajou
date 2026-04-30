@@ -5,6 +5,8 @@ import {
   ShieldCheck,
   Award,
   TrendingDown,
+  Building2,
+  ArrowRight,
 } from 'lucide-react';
 import { getCurrentUser } from '@/lib/auth/get-current-user';
 import { Navbar } from '@/components/layout/navbar';
@@ -138,6 +140,72 @@ export default async function HomePage() {
               <CardDescription className="text-white/85 mt-bv-2">
                 Conectamos você a empresas verificadas em todo o Brasil. Rede confiável,
                 viagens seguras.
+              </CardDescription>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* PARA EMPRESAS */}
+      <section id="para-empresas" className="bg-white py-bv-9 md:py-[120px] border-t border-bv-navy/8">
+        <div className="container mx-auto max-w-bv-container px-bv-5">
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-bv-6 items-center">
+            <div className="max-w-2xl">
+              <span className="inline-flex items-center gap-2 rounded-bv-pill bg-bv-navy-50 text-bv-navy-700 text-caption font-semibold px-3 py-1 mb-bv-4">
+                <Building2 size={14} strokeWidth={2.5} />
+                Pra donos de empresa
+              </span>
+              <BicolorHeading as="h2" size="h1" className="mb-bv-3">
+                Tem uma frota?{' '}
+                <BicolorHighlight>Coloque na plataforma.</BicolorHighlight>
+              </BicolorHeading>
+              <p className="text-body-lg text-bv-navy/72 mb-bv-6">
+                Empresas de fretamento conectadas a milhares de clientes em todo o Brasil.
+                Painel próprio pra acompanhar sua frota, avaliações e desempenho — sem mensalidade
+                escondida, sem letra miúda.
+              </p>
+              <ul className="space-y-bv-2 mb-bv-6 text-body text-bv-navy/80">
+                <li className="inline-flex items-start gap-2">
+                  <ShieldCheck size={18} strokeWidth={2.5} className="text-bv-green mt-0.5 shrink-0" />
+                  Cadastro 100% online, aprovação em até 48h
+                </li>
+                <li className="inline-flex items-start gap-2">
+                  <Award size={18} strokeWidth={2.5} className="text-bv-green mt-0.5 shrink-0" />
+                  Painel com sua frota, avaliações e indicadores
+                </li>
+                <li className="inline-flex items-start gap-2">
+                  <TrendingDown size={18} strokeWidth={2.5} className="text-bv-green mt-0.5 shrink-0" />
+                  Pricing dinâmico — você fatura mais em alta temporada
+                </li>
+              </ul>
+              <div className="flex flex-wrap gap-bv-3">
+                <Button asChild variant="primary" size="lg" iconRight={<ArrowRight size={16} />}>
+                  <Link href="/empresa/login">Acessar painel da empresa</Link>
+                </Button>
+                <Button asChild variant="outline" size="lg">
+                  <Link href="/seja-parceiro">Cadastrar minha empresa</Link>
+                </Button>
+              </div>
+              <p className="mt-bv-4 text-body-sm text-bv-navy/72">
+                Já é parceiro? Entre direto no{' '}
+                <Link
+                  href="/empresa/login"
+                  className="font-semibold text-bv-green hover:text-bv-green-700 underline underline-offset-4"
+                >
+                  painel da empresa
+                </Link>
+                .
+              </p>
+            </div>
+
+            <Card variant="brand" padding="lg" className="hidden lg:block max-w-sm">
+              <span className="inline-flex h-12 w-12 items-center justify-center rounded-bv-md bg-white/15 text-white mb-bv-4">
+                <Building2 size={24} strokeWidth={2} />
+              </span>
+              <CardTitle className="text-white">Sua frota, no seu painel</CardTitle>
+              <CardDescription className="text-white/85 mt-bv-2">
+                Acompanhe veículos, avaliações e regiões de atuação. Edição completa
+                vem em breve.
               </CardDescription>
             </Card>
           </div>
