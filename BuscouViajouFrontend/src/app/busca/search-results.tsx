@@ -192,9 +192,9 @@ export function SearchResults({ origin, destination, date, passengers }: Props) 
       </header>
 
       <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-bv-5">
-        {/* Sidebar desktop */}
+        {/* Sidebar desktop — sticky com scroll interno se exceder viewport */}
         <div className="hidden lg:block">
-          <div className="sticky top-[180px]">
+          <div className="sticky top-[180px] max-h-[calc(100vh-200px)] overflow-y-auto pr-bv-2 -mr-bv-2 [scrollbar-gutter:stable]">
             <FiltersSidebar
               results={allResults}
               value={safeFilters}

@@ -2,11 +2,25 @@
 
 import * as React from 'react';
 import { useRouter } from 'next/navigation';
-import { Bus, Users, Info, ArrowRight } from 'lucide-react';
+import { Bus, Users, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Stepper } from '@/components/ui/stepper';
+import { DatePicker } from '@/components/ui/date-picker';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
 import { PriceBreakdown } from '@/components/feature';
 import { formatCurrency, pluralCapacity } from '@/lib/utils/format';
 import { toast } from '@/components/ui/toaster';
+import { api, ApiError } from '@/lib/api/client';
+import type { QuoteSearchResponse } from '@/lib/api/types';
 
 interface Props {
   vehicleId: string;
@@ -22,17 +36,6 @@ interface Props {
   isLoggedIn: boolean;
 }
 
-/**
- * Sidebar de preço + CTA "Solicitar orçamento".
- * Modelo de negócio: comparador puro. A Buscou Viajou não fecha a reserva —
- * encaminha o lead pra empresa parceira finalizar diretamente.
- *
- * Fluxo:
- *  - Anônimo → salva intent + login com magic link
- *  - Logado sem cotação travada (entrou direto na URL) → volta pra busca
- *    (precisa data + passageiros pra empresa cotar de verdade)
- *  - Logado com cotação travada (Fase 2) → POST de lead pro CRM da empresa
- */
 export function ReserveCta({
   vehicleId,
   model,
@@ -47,76 +50,219 @@ export function ReserveCta({
   isLoggedIn,
 }: Props) {
   const router = useRouter();
+  const [open, setOpen] = React.useState(false);
+  const [origin, setOrigin] = React.useState('');
+  const [destination, setDestination] = React.useState('');
+  const [date, setDate] = React.useState<Date | undefined>(undefined);
+  const [passengers, setPassengers] = React.useState(Math.min(10, capacity));
+  const [submitting, setSubmitting] = React.useState(false);
 
-  function handleReserve() {
+  function handleOpen() {
     if (!isLoggedIn) {
       if (typeof window !== 'undefined') {
         localStorage.setItem(
           'pendingBookingIntent',
-          JSON.stringify({ vehicleId, model, companyName, capacity, finalPrice, ts: Date.now() }),
+          JSON.stringify({
+            vehicleId,
+            model,
+            companyName,
+            capacity,
+            finalPrice,
+            ts: Date.now(),
+          }),
         );
       }
       router.push(`/login?next=/veiculo/${vehicleId}`);
       return;
     }
-    toast.info('Falta a cotação', {
-      description:
-        'Volte à busca informando data e passageiros — assim a empresa cota com precisão e você é conectado(a) com ela.',
-      action: {
-        label: 'Ir pra busca',
-        onClick: () => router.push('/busca'),
-      },
-    });
+    setOpen(true);
+  }
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (!origin.trim() || !destination.trim() || !date) {
+      toast.error('Preencha origem, destino e data');
+      return;
+    }
+    if (passengers < 1 || passengers > capacity) {
+      toast.error(`Este veículo comporta entre 1 e ${capacity} passageiros`);
+      return;
+    }
+    setSubmitting(true);
+    try {
+      const departureIso = new Date(
+        date.getFullYear(),
+        date.getMonth(),
+        date.getDate(),
+        8,
+        0,
+        0,
+      ).toISOString();
+
+      const quote = await api<QuoteSearchResponse>('/v1/quotes', {
+        method: 'POST',
+        body: {
+          origin: origin.trim(),
+          destination: destination.trim(),
+          departureDate: departureIso,
+          passengers,
+        },
+      });
+
+      const item = quote.data.find((q) => q.vehicleId === vehicleId);
+      if (!item) {
+        toast.error('Veículo indisponível pra essa rota', {
+          description:
+            'Pode ser que a capacidade não atenda, ou a empresa não cubra essa região nessa data.',
+        });
+        return;
+      }
+
+      const booking = await api<{ id: string }>('/v1/bookings', {
+        method: 'POST',
+        body: {
+          lockedQuoteId: item.lockedQuoteId,
+          passengers,
+          isRoundTrip: false,
+        },
+      });
+
+      toast.success('Reserva criada', {
+        description: 'Te levando pra confirmação…',
+      });
+      router.push(`/reserva/${booking.id}`);
+    } catch (err) {
+      const detail =
+        err instanceof ApiError
+          ? err.detail
+          : err instanceof Error
+            ? err.message
+            : 'Erro inesperado';
+      toast.error('Não foi possível criar a reserva', { description: detail });
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   return (
-    <div className="rounded-bv-lg bg-white border border-bv-navy/12 shadow-bv-md p-bv-5 space-y-bv-4">
-      <div>
-        <p className="font-heading font-black text-h1 text-bv-navy tabular-nums leading-none">
-          {formatCurrency(finalPrice)}
-        </p>
-        <p className="mt-bv-1 text-body-sm text-bv-navy/72">
-          estimativa · {distanceKm ?? '—'} km · valor final é confirmado pela empresa
-        </p>
+    <>
+      <div className="rounded-bv-lg bg-white border border-bv-navy/12 shadow-bv-md p-bv-5 space-y-bv-4">
+        <div>
+          <p className="font-heading font-black text-h1 text-bv-navy tabular-nums leading-none">
+            {formatCurrency(finalPrice)}
+          </p>
+          <p className="mt-bv-1 text-body-sm text-bv-navy/72">
+            total da viagem (estimado · {distanceKm ?? '—'} km)
+          </p>
+        </div>
+
+        <PriceBreakdown
+          basePrice={basePrice}
+          multiplier={multiplier}
+          finalPrice={finalPrice}
+          distanceKm={distanceKm}
+          pricePerKm={pricePerKm}
+          minDepartureCost={minDepartureCost}
+        />
+
+        <Button variant="accent" size="lg" fullWidth onClick={handleOpen}>
+          Solicitar reserva
+        </Button>
+
+        <ul className="space-y-bv-2 text-body-sm text-bv-navy/72">
+          <li className="inline-flex items-center gap-2 w-full">
+            <Bus size={14} className="text-bv-navy/48" />
+            <span className="truncate">{model}</span>
+          </li>
+          <li className="inline-flex items-center gap-2">
+            <Users size={14} className="text-bv-navy/48" />
+            {pluralCapacity(capacity)}
+          </li>
+        </ul>
       </div>
 
-      <PriceBreakdown
-        basePrice={basePrice}
-        multiplier={multiplier}
-        finalPrice={finalPrice}
-        distanceKm={distanceKm}
-        pricePerKm={pricePerKm}
-        minDepartureCost={minDepartureCost}
-      />
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogContent size="md">
+          <DialogHeader>
+            <DialogTitle>Solicitar reserva</DialogTitle>
+            <DialogDescription>
+              {model} · {companyName}. Preencha os dados da viagem pra travarmos a cotação.
+            </DialogDescription>
+          </DialogHeader>
 
-      <Button
-        variant="accent"
-        size="lg"
-        fullWidth
-        onClick={handleReserve}
-        iconRight={<ArrowRight className="h-4 w-4" />}
-      >
-        Solicitar orçamento
-      </Button>
+          <form onSubmit={handleSubmit} className="space-y-bv-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-bv-3">
+              <div className="flex flex-col gap-bv-1">
+                <Label htmlFor="rsv-origin">Origem</Label>
+                <Input
+                  id="rsv-origin"
+                  value={origin}
+                  onChange={(e) => setOrigin(e.target.value)}
+                  placeholder="São Paulo, SP"
+                  required
+                  disabled={submitting}
+                  autoFocus
+                />
+              </div>
+              <div className="flex flex-col gap-bv-1">
+                <Label htmlFor="rsv-destination">Destino</Label>
+                <Input
+                  id="rsv-destination"
+                  value={destination}
+                  onChange={(e) => setDestination(e.target.value)}
+                  placeholder="Campos do Jordão, SP"
+                  required
+                  disabled={submitting}
+                />
+              </div>
+            </div>
 
-      <p className="flex items-start gap-bv-2 text-caption text-bv-navy/72 leading-relaxed">
-        <Info size={14} strokeWidth={2.5} className="text-bv-green shrink-0 mt-0.5" aria-hidden />
-        <span>
-          A reserva e o pagamento são finalizados <strong className="text-bv-navy">direto com {companyName}</strong>.
-          A Buscou Viajou conecta vocês.
-        </span>
-      </p>
+            <div className="grid grid-cols-1 sm:grid-cols-[1fr_auto] gap-bv-3 items-end">
+              <div className="flex flex-col gap-bv-1">
+                <Label htmlFor="rsv-date">Data da viagem</Label>
+                <DatePicker
+                  id="rsv-date"
+                  value={date}
+                  onChange={setDate}
+                  placeholder="Quando?"
+                  fromDate={new Date()}
+                  disabled={submitting}
+                />
+              </div>
+              <Stepper
+                value={passengers}
+                onChange={setPassengers}
+                min={1}
+                max={capacity}
+                label="Passageiros"
+                unitLabel={`máx. ${capacity}`}
+                disabled={submitting}
+              />
+            </div>
 
-      <ul className="space-y-bv-2 text-body-sm text-bv-navy/72 pt-bv-3 border-t border-bv-navy/8">
-        <li className="inline-flex items-center gap-2 w-full">
-          <Bus size={14} className="text-bv-navy/48" />
-          <span className="truncate">{model}</span>
-        </li>
-        <li className="inline-flex items-center gap-2">
-          <Users size={14} className="text-bv-navy/48" />
-          {pluralCapacity(capacity)}
-        </li>
-      </ul>
-    </div>
+            <DialogFooter>
+              <Button
+                type="button"
+                variant="ghost"
+                onClick={() => setOpen(false)}
+                disabled={submitting}
+              >
+                Cancelar
+              </Button>
+              <Button type="submit" variant="accent" disabled={submitting}>
+                {submitting ? (
+                  <>
+                    <Loader2 size={16} className="animate-spin" />
+                    Enviando…
+                  </>
+                ) : (
+                  'Confirmar e seguir'
+                )}
+              </Button>
+            </DialogFooter>
+          </form>
+        </DialogContent>
+      </Dialog>
+    </>
   );
 }
