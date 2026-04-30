@@ -36,9 +36,11 @@ export const PartnerSignupSchema = z.object({
   representativeRole: z.string().min(2).max(100),
 
   // Etapa 3 — Documentos & Frota
-  socialContractFileUrl: z.string().url(),
-  permitFileUrl: z.string().url(),
-  anttFileUrl: z.string().url(),
+  // Documentos são opcionais no envio inicial; o time pode solicitar via
+  // status PENDING_DOCUMENTS durante a análise.
+  socialContractFileUrl: z.string().url().optional().nullable(),
+  permitFileUrl: z.string().url().optional().nullable(),
+  anttFileUrl: z.string().url().optional().nullable(),
   estimatedVehicleCount: z.enum(FLEET_SIZE),
   vehicleTypes: z.array(z.enum(VEHICLE_TYPES)).min(1),
   operatingRegions: z.array(UF).min(1),

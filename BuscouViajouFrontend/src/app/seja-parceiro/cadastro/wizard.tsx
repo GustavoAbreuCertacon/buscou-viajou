@@ -182,12 +182,11 @@ function validateStep2(s: FormState): string | null {
 }
 
 function validateStep3(s: FormState): string | null {
-  if (!s.socialContractFileUrl) return 'Envie o contrato social.';
-  if (!s.permitFileUrl) return 'Envie o alvará de funcionamento.';
-  if (!s.anttFileUrl) return 'Envie a autorização ANTT.';
   if (!s.estimatedVehicleCount) return 'Selecione a quantidade de veículos.';
   if (s.vehicleTypes.length === 0) return 'Selecione ao menos 1 tipo de veículo.';
   if (s.operatingRegions.length === 0) return 'Selecione ao menos 1 estado de atuação.';
+  // Documentos (Contrato Social, Alvará, ANTT) são opcionais no envio inicial.
+  // Se faltarem, o time pode solicitar via PENDING_DOCUMENTS depois.
   return null;
 }
 
@@ -296,9 +295,9 @@ export function PartnerSignupWizard() {
             representativeEmail: state.representativeEmail.trim(),
             representativePhone: state.representativePhone,
             representativeRole: state.representativeRole.trim(),
-            socialContractFileUrl: state.socialContractFileUrl,
-            permitFileUrl: state.permitFileUrl,
-            anttFileUrl: state.anttFileUrl,
+            socialContractFileUrl: state.socialContractFileUrl || null,
+            permitFileUrl: state.permitFileUrl || null,
+            anttFileUrl: state.anttFileUrl || null,
             estimatedVehicleCount: state.estimatedVehicleCount,
             vehicleTypes: state.vehicleTypes,
             operatingRegions: state.operatingRegions,
@@ -720,7 +719,8 @@ function Step3Docs({ state, setField }: StepProps) {
       <div>
         <h2 className="font-heading font-bold text-h3 text-bv-navy">Documentação</h2>
         <p className="text-body-sm text-bv-navy/72 mt-bv-1">
-          Os 3 documentos abaixo são obrigatórios. PDF até 10MB cada.
+          Opcional no envio inicial. Se preferir, podemos solicitar depois durante a
+          análise do cadastro. PDF até 10MB cada.
         </p>
       </div>
 
