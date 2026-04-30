@@ -312,9 +312,24 @@ export function PartnerSignupWizard() {
         `/seja-parceiro/sucesso?email=${encodeURIComponent(state.representativeEmail)}&id=${res.applicationId}`,
       );
     } catch (err) {
-      const detail =
-        err instanceof ApiError ? err.detail : err instanceof Error ? err.message : 'Erro';
-      toast.error('Não foi possível enviar o cadastro', { description: detail });
+      let description = 'Erro inesperado';
+      if (err instanceof ApiError) {
+        description = err.detail;
+        const errs = err.errors as Array<{ field: string; message: string }> | undefined;
+        if (Array.isArray(errs) && errs.length > 0) {
+          const lines = errs
+            .slice(0, 6)
+            .map((e) => `• ${e.field}: ${e.message}`)
+            .join('\n');
+          description = `${err.detail}\n${lines}`;
+          // Loga no console pra inspeção completa
+          // eslint-disable-next-line no-console
+          console.error('[partner-signup] validation errors:', errs);
+        }
+      } else if (err instanceof Error) {
+        description = err.message;
+      }
+      toast.error('Não foi possível enviar o cadastro', { description });
     } finally {
       setSubmitting(false);
     }
