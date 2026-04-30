@@ -1,0 +1,720 @@
+{
+  "$schema": "./design-dna.schema.json",
+  "version": "1.0.0",
+  "metadata": {
+    "brand": "Buscou Viajou",
+    "tagline": "Buscou → Encontrou → Viajou",
+    "descriptor": "Fretamento Inteligente",
+    "industry": "Charter transportation marketplace (buses, vans, mini-buses) for Brazilian tourism",
+    "positioning": "The Trivago of charter transportation — clean, trustworthy, technology-forward, optimistic",
+    "createdAt": "2026-04-30",
+    "language": "pt-BR",
+    "sources": [
+      "_context/buscou-viajou-design-system.md (DS canon)",
+      "_context/tokens.css",
+      "_context/tokens.json",
+      "_context/tailwind.config.js",
+      "_context/PRD_BuscouViajou_v1.md (§6 telas, §10.4 voz)"
+    ]
+  },
+
+  "designSystem": {
+    "colors": {
+      "brand": {
+        "navy":  { "hex": "#0B2A43", "rgb": "rgb(11, 42, 67)",  "hsl": "hsl(208, 72%, 15%)", "meaning": "trust, technology, security",     "usage": "primary brand, headlines, primary buttons, footers, navbar text" },
+        "green": { "hex": "#2B9366", "rgb": "rgb(43, 147, 102)", "hsl": "hsl(152, 55%, 37%)", "meaning": "movement, innovation, growth", "usage": "accent, CTAs, focus rings, journey highlights, semantic keyword in bicolor titles" }
+      },
+      "neutrals": {
+        "white":      { "hex": "#FFFFFF", "usage": "surfaces, text on navy/green" },
+        "black":      { "hex": "#000000", "usage": "logo V4 (1-tinta), monochrome print" },
+        "background": { "hex": "#F1F5F6", "usage": "page background, blueprint canvas" },
+        "gridLine":   { "hex": "#E1E7EA", "usage": "blueprint pattern lines, subtle dividers" }
+      },
+      "scales": {
+        "navy": {
+          "50":  "#E7ECF0",
+          "100": "#CED9E1",
+          "200": "#9DB3C3",
+          "300": "#6C8DA6",
+          "400": "#3B6788",
+          "500": "#0B2A43",
+          "600": "#092336",
+          "700": "#071B2A",
+          "800": "#04131D",
+          "900": "#020810"
+        },
+        "green": {
+          "50":  "#E4F4EC",
+          "100": "#C9E9D9",
+          "200": "#95D3B3",
+          "300": "#60BC8C",
+          "400": "#3FA675",
+          "500": "#2B9366",
+          "600": "#237652",
+          "700": "#1A583E",
+          "800": "#123B29",
+          "900": "#091D14"
+        }
+      },
+      "semantic": {
+        "success": { "hex": "#2B9366", "note": "alias of brand green" },
+        "info":    { "hex": "#0B2A43", "note": "alias of brand navy" },
+        "warning": { "hex": "#E0A23B", "note": "warm amber, used sparingly" },
+        "danger":  { "hex": "#C64343", "note": "muted red, never neon" }
+      },
+      "text": {
+        "primary":     "var(--bv-color-navy)",
+        "secondary":   "rgba(11, 42, 67, 0.72)",
+        "tertiary":    "rgba(11, 42, 67, 0.48)",
+        "accent":      "var(--bv-color-green)",
+        "inverse":     "var(--bv-color-white)",
+        "placeholder": "rgba(11, 42, 67, 0.48)"
+      },
+      "surfaces": {
+        "page":     "var(--bv-color-white)",
+        "canvas":   "var(--bv-color-bg)",
+        "elevated": "var(--bv-color-white)",
+        "brand":    "var(--bv-color-navy)",
+        "accent":   "var(--bv-color-green)"
+      },
+      "contrast": {
+        "navyOnWhite":   { "ratio": 14.8, "wcag": "AAA",       "minTextSize": "any" },
+        "whiteOnNavy":   { "ratio": 14.8, "wcag": "AAA",       "minTextSize": "any" },
+        "greenOnWhite":  { "ratio": 3.9,  "wcag": "AA-Large",  "minTextSize": "18px or 14px bold" },
+        "whiteOnGreen":  { "ratio": 3.9,  "wcag": "AA-Large",  "minTextSize": "18px or 14px bold" },
+        "navyOnGreen":   { "ratio": 3.8,  "wcag": "AA-Large",  "minTextSize": "decorative only" }
+      },
+      "proportionRule": {
+        "neutral": "60% (white + canvas)",
+        "navy":    "30% (containers, headings, structure)",
+        "green":   "10% (CTAs, accents, journey highlights)"
+      },
+      "ctaContrastRule": "For green CTAs with text < 18px, prefer navy text on green bg (or use green-700 instead of green-500)"
+    },
+
+    "typography": {
+      "families": {
+        "heading": {
+          "stack": "'Gotham', 'Helvetica Neue', Arial, sans-serif",
+          "license": "Hoefler & Co — installed locally as @font-face (woff2)",
+          "weights": [100, 200, 300, 400, 500, 700, 800, 900],
+          "italics": true,
+          "localPath": "/fonts/gotham/",
+          "fallbackQuality": "Poppins is acceptable substitute if Gotham fails to load"
+        },
+        "body": {
+          "stack": "'Hind', 'Poppins', 'Helvetica Neue', Arial, sans-serif",
+          "source": "Google Fonts CDN",
+          "weights": [300, 400, 500, 600, 700],
+          "italics": "limited — only for footer signatures"
+        }
+      },
+      "scale": {
+        "display":  { "fontSize": "3.5rem",   "px": 56, "lineHeight": 1.1,  "letterSpacing": "-0.01em", "weightPreferred": 900, "use": "hero opening titles" },
+        "h1":       { "fontSize": "2.5rem",   "px": 40, "lineHeight": 1.25, "letterSpacing": "-0.01em", "weightPreferred": 700, "use": "main section titles" },
+        "h2":       { "fontSize": "2rem",     "px": 32, "lineHeight": 1.25, "weightPreferred": 700, "use": "subsection titles" },
+        "h3":       { "fontSize": "1.5rem",   "px": 24, "lineHeight": 1.25, "weightPreferred": 700, "use": "card and block titles" },
+        "h4":       { "fontSize": "1.25rem",  "px": 20, "lineHeight": 1.5,  "weightPreferred": 600, "use": "micro-titles, emphatic labels" },
+        "bodyLg":   { "fontSize": "1.125rem", "px": 18, "lineHeight": 1.5,  "weightPreferred": 400, "use": "intro paragraphs, lead text" },
+        "body":     { "fontSize": "1rem",     "px": 16, "lineHeight": 1.5,  "weightPreferred": 400, "use": "default body text" },
+        "bodySm":   { "fontSize": "0.875rem", "px": 14, "lineHeight": 1.5,  "weightPreferred": 400, "use": "support text, metadata" },
+        "caption":  { "fontSize": "0.75rem",  "px": 12, "lineHeight": 1.5,  "weightPreferred": 400, "use": "footers, signatures, fine print" }
+      },
+      "rules": {
+        "headlineMinWeight": 700,
+        "bodyDefaultWeight": 400,
+        "uppercase": "AVOID in long paragraphs (clarity over stylization)",
+        "italic": "RESERVED for footers/signatures only",
+        "alignment": "left default; centered only for CTAs and short hero titles",
+        "maxColorsPerTitle": 2,
+        "preferredColorPair": "navy + green"
+      },
+      "bicolorTitlePattern": {
+        "name": "bv-heading-bicolor",
+        "description": "ONE word in green (semantic keyword), rest in navy. Brand signature visual.",
+        "rule": "Never split colors within a single word",
+        "examples": [
+          {"text": "Principais Valores",          "navy": "Principais",         "green": "Valores"},
+          {"text": "Tom & Voz",                   "navy": "Voz",                 "green": "Tom &"},
+          {"text": "Diretrizes de Comunicação",   "navy": "Comunicação",         "green": "Diretrizes de"},
+          {"text": "Paleta de Cores",             "navy": "Paleta de",           "green": "Cores"},
+          {"text": "Encontre sua próxima viagem", "navy": "Encontre sua",        "green": "próxima viagem"},
+          {"text": "Buscou Viajou",               "navy": "Buscou",              "green": "Viajou"}
+        ],
+        "selectionHeuristic": "The green word should be the semantic keyword — the action, destination, or emotional pivot. Navy holds the structural/preposition parts."
+      }
+    },
+
+    "spacing": {
+      "system": "8pt grid",
+      "scale": {
+        "0": { "rem": "0",        "px": 0,  "use": "reset" },
+        "1": { "rem": "0.25rem",  "px": 4,  "use": "icon-text gap, chip inner gap" },
+        "2": { "rem": "0.5rem",   "px": 8,  "use": "small inner padding" },
+        "3": { "rem": "0.75rem",  "px": 12, "use": "gap between form fields" },
+        "4": { "rem": "1rem",     "px": 16, "use": "default card padding" },
+        "5": { "rem": "1.5rem",   "px": 24, "use": "gap between blocks of same section" },
+        "6": { "rem": "2rem",     "px": 32, "use": "separation between subsections" },
+        "7": { "rem": "3rem",     "px": 48, "use": "separation between major sections" },
+        "8": { "rem": "4rem",     "px": 64, "use": "page top/bottom margins" },
+        "9": { "rem": "6rem",     "px": 96, "use": "hero margins" }
+      }
+    },
+
+    "layout": {
+      "container": {
+        "maxWidth": "1200px",
+        "horizontalPadding": "var(--bv-space-5)"
+      },
+      "grid": {
+        "columns": 12,
+        "gutter": "24px"
+      },
+      "breakpoints": {
+        "sm":  { "min": "640px",  "use": "small phones landscape" },
+        "md":  { "min": "768px",  "use": "tablet portrait" },
+        "lg":  { "min": "1024px", "use": "tablet landscape / small desktop" },
+        "xl":  { "min": "1280px", "use": "default desktop" },
+        "2xl": { "min": "1536px", "use": "wide desktop" }
+      },
+      "responsivePhilosophy": "Design desktop and mobile separately — not just 'responsive'. Sidebar on desktop becomes bottom-sheet on mobile. Hero stacks vertically. CTAs become floating action buttons on long pages."
+    },
+
+    "radii": {
+      "none": "0",
+      "sm":   "4px (inputs, small tags)",
+      "md":   "8px (cards, buttons — DEFAULT)",
+      "lg":   "16px (framed images, hero cards)",
+      "pill": "9999px (chips, badges, avatars)"
+    },
+
+    "shadows": {
+      "policy": "Always navy-tinted (rgba(11,42,67,X)). NEVER neutral grey.",
+      "sm":     "0 1px 2px rgba(11, 42, 67, 0.06)",
+      "md":     "0 4px 12px rgba(11, 42, 67, 0.08)",
+      "lg":     "0 12px 32px rgba(11, 42, 67, 0.12)",
+      "focus":  "0 0 0 3px rgba(43, 147, 102, 0.35)"
+    },
+
+    "borders": {
+      "widths": {
+        "thin":  "1px",
+        "base":  "2px (outline cards, focus, brand emphasis)",
+        "thick": "3px (active selectors, strong active states)"
+      },
+      "colors": {
+        "default": "rgba(11, 42, 67, 0.12)",
+        "hover":   "rgba(11, 42, 67, 0.24)",
+        "focus":   "var(--bv-color-green)",
+        "error":   "var(--bv-danger)"
+      }
+    },
+
+    "motion": {
+      "durations": {
+        "instant": "0ms",
+        "fast":    "150ms",
+        "base":    "250ms",
+        "slow":    "400ms"
+      },
+      "easings": {
+        "default":   "cubic-bezier(0.2, 0.8, 0.2, 1)",
+        "decelerate":"cubic-bezier(0, 0, 0.2, 1)",
+        "accelerate":"cubic-bezier(0.4, 0, 1, 1)"
+      },
+      "respectsReducedMotion": true,
+      "reducedMotionFallback": "All shimmer skeletons become pulse 1s ease-in-out infinite. Page transitions become instant. Carousel autoplay disabled."
+    }
+  },
+
+  "designStyle": {
+    "philosophy": {
+      "name": "Blueprint Planner",
+      "shortDescription": "The clarity of a technical document meeting the warmth of a journey",
+      "longDescription": "Buscou Viajou's visual language is grounded in the geometric clarity of an architectural blueprint — clean lines, structured grids, navy ink — but warmed by green accents that suggest movement and growth. It speaks the language of an organized planner who happens to be excited about your next trip.",
+      "references": [
+        { "brand": "Stripe",   "for": "clarity, geometric typography, generous whitespace" },
+        { "brand": "Trivago",  "for": "comparison/marketplace mental model" },
+        { "brand": "Linear",   "for": "minimalist UI, focused interactions" },
+        { "brand": "Airbnb",   "for": "human warmth in marketplace context" }
+      ],
+      "antiReferences": [
+        "Ornate or elaborate (e.g. travel agency vintage)",
+        "Gradient-heavy (e.g. early 2010s SaaS)",
+        "Skeuomorphic (e.g. tickets resembling paper boarding passes)",
+        "Generic AI illustration with no brand voice",
+        "Hand-drawn or sketchy aesthetic",
+        "Retro or kitsch references"
+      ]
+    },
+
+    "values": [
+      {
+        "name": "Simplicidade",
+        "description": "Acreditamos que viajar deve ser fácil. Soluções simples e intuitivas pra encontrar, comparar e reservar sem complicação.",
+        "visualExpression": "outline cards (white bg, 2px green border, navy text)",
+        "voiceExpression": "short sentences, journey verbs, no jargon"
+      },
+      {
+        "name": "Inovação",
+        "description": "Buscamos novas tecnologias e formas de melhorar a experiência. Busca e contratação cada vez mais rápida e inteligente.",
+        "visualExpression": "accent card (green bg, white text, optional rotate -4deg in marketing)",
+        "voiceExpression": "active future-leaning verbs, optimistic"
+      },
+      {
+        "name": "Conexão",
+        "description": "Conectamos pessoas a destinos, experiências e oportunidades. Rede de mobilidade acessível e eficiente.",
+        "visualExpression": "brand card (navy bg, white text, solid block)",
+        "voiceExpression": "inclusive, second-person, talking with not at"
+      }
+    ],
+
+    "voice": {
+      "personality": {
+        "primary": "simples, confiável, direto",
+        "tone": "próxima e otimista, não corporativa, não excessivamente informal",
+        "spectrum": {
+          "formal": 0.4,
+          "playful": 0.5,
+          "technical": 0.3,
+          "warm": 0.8
+        }
+      },
+      "principles": [
+        "Use 2nd person direct ('você')",
+        "1 idea per sentence",
+        "CTAs as journey verbs (Buscar, Encontrar, Comparar, Reservar, Viajar)",
+        "Avoid technical jargon (no 'onboarding', 'conversion rate', 'CTA', 'LTV' in user-facing text)",
+        "Active voice always",
+        "Show, don't promise. Be specific over generic."
+      ],
+      "checklist": [
+        "Compreensível no primeiro contato?",
+        "Sem jargão desnecessário?",
+        "Confiança sem rigidez?",
+        "Voz consistente com outros canais?",
+        "Otimista, convida à ação?"
+      ],
+      "examples": {
+        "good": [
+          "Para onde?",
+          "Buscar viagens",
+          "Não encontramos veículos pra essa rota.",
+          "Pronto! Sua reserva está confirmada.",
+          "Que tal tentar outra data?"
+        ],
+        "avoid": [
+          "Insira o destino de partida no campo abaixo",
+          "Submit",
+          "Nenhum resultado encontrado para os critérios fornecidos",
+          "Sua transação foi processada com sucesso",
+          "Click here"
+        ]
+      }
+    },
+
+    "imagery": {
+      "subjects": "Real people in mobility context — drivers smiling, passengers embarking, professionals in uniform, travelers with luggage",
+      "feel": "warm welcoming, professional, optimistic",
+      "lighting": "natural, balanced warm tones",
+      "vehicles": {
+        "type": "white buses, vans, mini-buses",
+        "graphic": "green wave/curve graphic on side panel + BV monogram"
+      },
+      "framing": "people with eye contact or positive gestures (wave, thumbs up)",
+      "treatment": {
+        "cornerRadius": "radius-lg (16px) on hero/featured images",
+        "frame": "L-bracket corners (bv-frame-corner) on key destacados",
+        "filter": "minimal — preserve natural color"
+      },
+      "doNotUse": [
+        "Stock photos with exaggerated retouching or unrealistic smiles",
+        "Dark night scenes (conflicts with trust/clarity territory)",
+        "Tense or chaotic transport scenes (rush, traffic jams shown negatively)",
+        "Generic transportation stock without brand context",
+        "Maps or routes drawn over photos (use SVG overlays only)"
+      ]
+    },
+
+    "layoutPrinciples": {
+      "proportionRule": "60% neutral / 30% navy / 10% green",
+      "whitespace": "generous; respiro is part of the brand identity",
+      "asymmetry": {
+        "marketing": "OK — rotated cards, off-center heroes, dynamic compositions",
+        "transactional": "AVOID — forms, dashboards, reservation flow stay aligned and predictable"
+      },
+      "informationDensity": {
+        "landing": "low — make the eye breathe",
+        "search results": "medium — comparison needs density but not crowding",
+        "details": "medium — generous but no scrolling fatigue",
+        "dashboard": "high — but with clear visual hierarchy"
+      }
+    },
+
+    "iconography": {
+      "style": "outline, 2px stroke, rounded caps and joins",
+      "size": {
+        "default": "24px",
+        "small": "16px",
+        "medium": "20px",
+        "large": "32px",
+        "hero": "48px"
+      },
+      "color": {
+        "default": "var(--bv-color-navy)",
+        "active":  "var(--bv-color-green)",
+        "disabled":"rgba(11, 42, 67, 0.32)"
+      },
+      "library": "Lucide React (preferred) or Phosphor outline",
+      "padding": "1px breathing room inside icon canvas"
+    }
+  },
+
+  "visualEffects": {
+    "blueprintGrid": {
+      "name": "bv-canvas",
+      "description": "Blueprint paper aesthetic. 32×32px grid of subtle lines on light background. Reinforces 'planner' territory.",
+      "css": {
+        "background-color": "var(--bv-color-bg)",
+        "background-image": "linear-gradient(to right, var(--bv-color-grid-line) 1px, transparent 1px), linear-gradient(to bottom, var(--bv-color-grid-line) 1px, transparent 1px)",
+        "background-size": "32px 32px"
+      },
+      "useIn": ["heroes", "landing pages", "brand sections", "404 pages"],
+      "doNotUseIn": ["dashboards (visual fatigue)", "tables", "high-density product UI", "modals/dialogs"]
+    },
+
+    "frameCorner": {
+      "name": "bv-frame-corner",
+      "description": "L-shaped brackets in navy 2px stroke at top-left and bottom-right of an element. Suggests hand-drawn route corners around hero images.",
+      "implementation": {
+        "approach": "::before and ::after pseudo-elements",
+        "size": "56×56 corner-only borders",
+        "color": "var(--bv-color-navy)",
+        "weight": "2px"
+      },
+      "useIn": ["featured imagery", "hero cards", "about sections", "team photos"],
+      "doNotUseIn": ["product cards", "user avatars", "form elements"]
+    },
+
+    "bicolorTitle": {
+      "name": "bv-heading-bicolor",
+      "description": "Brand signature: one word in green (the semantic keyword), rest in navy. THIS IS THE MOST IMPORTANT VISUAL PATTERN OF THE BRAND.",
+      "rules": [
+        "ONE word in green, rest in navy",
+        "Never split colors within the same word",
+        "Green word should be the action, destination, or emotional pivot",
+        "Navy holds structural/preposition parts"
+      ],
+      "examples": [
+        "Encontre sua <green>próxima viagem</green>.",
+        "<green>Buscou</green> Viajou (logo wordmark exception)",
+        "Compare <green>milhares</green> de veículos.",
+        "Sua próxima <green>aventura</green> começa aqui."
+      ],
+      "applyTo": ["page titles", "section headlines", "marketing copy", "hero text"],
+      "doNotApplyTo": ["body paragraphs", "form labels", "metadata", "long-form content"]
+    },
+
+    "journeyTag": {
+      "name": "bv-journey-tag",
+      "description": "'Buscou → Encontrou → Viajou' as a closing signature — the brand's hero tagline reduced to its three movements.",
+      "implementation": "<ol class='flex items-center gap-3'><li>Buscou</li><li aria-hidden>→</li><li>Encontrou</li><li aria-hidden>→</li><li>Viajou</li></ol>",
+      "color": "var(--bv-color-green)",
+      "fontFamily": "var(--bv-font-heading) (Gotham bold)",
+      "fontSize": "var(--bv-fs-body-lg) or larger",
+      "fontWeight": 700,
+      "useIn": ["hero footers", "section closers", "footer signatures", "loading screens (animated)", "404 pages", "post-action confirmations"],
+      "useSparingly": "Don't repeat in same view — it's a signature, not a pattern"
+    },
+
+    "valueCardTriad": {
+      "description": "Three card treatments forming the Values section pattern (page 3 of brand manual).",
+      "variants": {
+        "outline": { "bg": "white", "border": "2px solid green-500", "text": "navy", "transform": "none" },
+        "accent":  { "bg": "green-500", "text": "white", "transform": "rotate(-4deg)" },
+        "brand":   { "bg": "navy-500",  "text": "white", "transform": "none" }
+      },
+      "rule": "Order: Outline → Accent (rotated) → Brand. The rotation creates rhythm; the colors create hierarchy.",
+      "useIn": ["values sections", "feature triads in marketing", "pricing tiers (with adaptation)"],
+      "doNotUseIn": ["transactional UI", "lists with > 3 items"]
+    },
+
+    "buttonRing": {
+      "description": "Focus ring is ALWAYS green — never grey or blue — for accessibility AND brand consistency.",
+      "css": "box-shadow: 0 0 0 3px rgba(43, 147, 102, 0.35)",
+      "appliesTo": "all interactive elements (buttons, links, inputs, cards) on focus-visible"
+    },
+
+    "greenWave": {
+      "description": "Curved green line on side of vehicles in brand imagery — derived from BV monogram dynamic stroke.",
+      "useIn": ["section dividers (decorative)", "loaders (animated)", "marketing email signatures", "vehicle photos in product"],
+      "demoStatus": "deferred — not implemented in MVP. Plan for Fase 2."
+    },
+
+    "skeletonPattern": {
+      "description": "Loading state — structural skeletons that match the final layout. NEVER generic spinners.",
+      "shimmerColor": "linear-gradient with white/40 moving left-to-right over 1.5s",
+      "fallbackPulse": "for prefers-reduced-motion: opacity pulse 1s ease-in-out",
+      "block": "use --bv-color-bg as base, slightly tinted shimmer"
+    },
+
+    "logoVariations": {
+      "V1_full_color": { "bg": "any light", "use": "primary, default" },
+      "V2_white_on_navy": { "bg": "navy-500 solid", "use": "navy hero blocks, footers, navy marketing" },
+      "V3_white_on_green": { "bg": "green-500 solid", "use": "green CTA blocks, social posts" },
+      "V4_black": { "bg": "any light", "use": "1-tinta print, fax, low-fidelity" },
+      "V5_white": { "bg": "dark photos, premium dark themes", "use": "overlays" },
+      "monograms": {
+        "full_color": "app icon, favicon, social avatar",
+        "white": "watermark on dark surfaces",
+        "black": "watermark in print"
+      }
+    }
+  },
+
+  "componentRules": {
+    "buttons": {
+      "variants": {
+        "primary":  { "bg": "navy-500",  "text": "white",          "use": "main CTA — 1 per view" },
+        "accent":   { "bg": "green-500", "text": "white > 18px or navy < 18px", "use": "movement/action CTA" },
+        "outline":  { "bg": "transparent", "border": "2px navy-500", "text": "navy-500", "use": "secondary action" },
+        "ghost":    { "bg": "transparent", "text": "navy-700", "use": "tertiary, link-like" },
+        "danger":   { "bg": "danger", "text": "white", "use": "destructive (cancel reservation, delete account)" }
+      },
+      "states": {
+        "hover":    "darken bg 8% (or lighten if dark)",
+        "pressed":  "darken bg 16%",
+        "focus":    "shadow-focus (green ring)",
+        "disabled": "opacity 40%, cursor not-allowed",
+        "loading":  "spinner replaces icon, label changes to gerund (Buscando..., Reservando...)"
+      },
+      "anatomy": {
+        "padding": "12px 24px (default), 8px 16px (small), 16px 32px (large)",
+        "radius": "8px (radius-md)",
+        "fontWeight": 600,
+        "fontSize": "16px mobile, 16-18px desktop",
+        "minHeight": "44px (touch a11y)",
+        "iconGap": "8px"
+      }
+    },
+
+    "cards": {
+      "variants": {
+        "default":      { "bg": "white",     "border": "1px navy/12", "shadow": "shadow-md", "use": "general content" },
+        "outline":      { "bg": "white",     "border": "2px green-500", "shadow": "none",    "use": "value props, marketing" },
+        "accent":       { "bg": "green-500", "text": "white", "use": "marketing, optionally rotated -2 to -4deg in heroes" },
+        "brand":        { "bg": "navy-500",  "text": "white", "use": "authority blocks, technical data" },
+        "interactive":  { "bg": "white",     "border": "1px navy/12", "shadow": "shadow-md", "hover": "shadow-lg + border navy/24", "use": "clickable cards (vehicle results, booking cards)" }
+      },
+      "anatomy": {
+        "padding": "24px (space-5) default, 16px (space-4) compact",
+        "radius": "8px (radius-md)",
+        "imageRadius": "16px (radius-lg) for embedded media"
+      }
+    },
+
+    "inputs": {
+      "default": {
+        "border": "1px rgba(11,42,67,0.16)",
+        "radius": "8px",
+        "padding": "12px 16px",
+        "fontSize": "16px (avoid iOS zoom)",
+        "background": "white"
+      },
+      "focus": {
+        "border": "green-500",
+        "shadow": "shadow-focus"
+      },
+      "error": {
+        "border": "danger",
+        "shadow": "0 0 0 3px rgba(198, 67, 67, 0.2)",
+        "messageBelow": "body-sm in danger color"
+      },
+      "label": {
+        "above": true,
+        "size": "body-sm",
+        "weight": 600,
+        "color": "navy",
+        "voice": "Short, direct: 'Para onde?', 'Quando?', 'Quantos passageiros?'"
+      },
+      "placeholder": {
+        "color": "rgba(11,42,67,0.48)",
+        "voice": "Specific example: 'Ex.: Campos do Jordão'"
+      },
+      "rules": [
+        "Labels NEVER contain 'Insira', 'Digite', 'Informe' — use direct question",
+        "Placeholders use real-world examples, not field descriptions",
+        "Error messages start with what's wrong, then how to fix"
+      ]
+    },
+
+    "chipBadge": {
+      "radius": "9999px (pill)",
+      "padding": "4px 12px",
+      "fontSize": "12px (caption)",
+      "fontWeight": 600,
+      "lineHeight": 1.3,
+      "variants": {
+        "neutral":  { "bg": "navy-50",  "text": "navy-700" },
+        "accent":   { "bg": "green-50", "text": "green-700" },
+        "solidNavy":{ "bg": "navy-500", "text": "white" },
+        "solidGreen":{ "bg": "green-500", "text": "white" },
+        "warning":  { "bg": "#FFF4E0",  "text": "#A06D1F" },
+        "danger":   { "bg": "#FCE8E8",  "text": "#9C2C2C" }
+      }
+    },
+
+    "navbar": {
+      "bg": "white",
+      "borderBottom": "1px rgba(11, 42, 67, 0.08)",
+      "height": "64px",
+      "logo": "V1 (full color), height 32-36px",
+      "linkColor": "navy-700",
+      "linkWeight": 500,
+      "linkHover": "green-500",
+      "ctaPosition": "right end",
+      "mobile": {
+        "logo": "monogram only or compact lockup",
+        "menuIcon": "outline 24px navy",
+        "drawer": "right side sheet, full height, navy bg with white links"
+      }
+    },
+
+    "footer": {
+      "bg": "navy-500",
+      "logo": "V2 (white-on-navy), height 32-40px",
+      "textColor": "white",
+      "linkColor": "white/80",
+      "linkHover": "green-300",
+      "structure": [
+        "Logo + tagline column",
+        "3-4 link columns by topic",
+        "Bottom signature line"
+      ],
+      "signature": {
+        "text": "Manual da Marca · Buscou Viajou",
+        "style": "italic",
+        "color": "white/60",
+        "size": "caption (12px)",
+        "position": "bottom-left"
+      }
+    },
+
+    "skeleton": {
+      "background": "var(--bv-color-bg)",
+      "shimmer": {
+        "color": "rgba(255, 255, 255, 0.4)",
+        "duration": "1.5s",
+        "easing": "ease-in-out",
+        "iteration": "infinite"
+      },
+      "rule": "Skeleton blocks must match the layout dimensions of final content (use same width/height as actual elements)"
+    },
+
+    "toast": {
+      "position": {
+        "desktop": "bottom-right",
+        "mobile":  "top-center"
+      },
+      "duration": "5s auto-dismiss (8s for danger)",
+      "stack": "max 3 visible, oldest pushed out",
+      "variants": {
+        "success": { "bg": "green-50",   "text": "green-700",  "icon": "✓" },
+        "info":    { "bg": "navy-50",    "text": "navy-700",   "icon": "ℹ" },
+        "warning": { "bg": "#FFF4E0",    "text": "#A06D1F",    "icon": "⚠" },
+        "danger":  { "bg": "#FCE8E8",    "text": "#9C2C2C",    "icon": "✕" }
+      },
+      "errorIdRule": "5xx errors include error_id in toast body (small caption text)"
+    },
+
+    "modal": {
+      "backdrop": "rgba(11, 42, 67, 0.6)",
+      "background": "white",
+      "radius": "16px (radius-lg)",
+      "shadow": "shadow-lg",
+      "padding": "32px (space-6)",
+      "maxWidth": "480px (small), 640px (medium), 800px (large)",
+      "closeButton": "top-right, ghost, navy/40 hover navy",
+      "title": "h3, bicolor when applicable"
+    }
+  },
+
+  "writingPatterns": {
+    "ctaVerbs": ["Buscar", "Encontrar", "Comparar", "Reservar", "Viajar", "Solicitar", "Confirmar", "Continuar"],
+    "avoidWords": ["Submit", "Click here", "Clique aqui", "Enviar formulário", "Fazer login", "Acessar conta"],
+    "preferredPhrasings": {
+      "loadingButton": "Buscando viagens…",
+      "emptyResults": "Não encontramos veículos pra essa rota e data.",
+      "successToast": "Pronto!",
+      "errorToast": "Algo deu errado por aqui.",
+      "loginCTA": "Entrar",
+      "logoutCTA": "Sair",
+      "profileMenu": "Minha conta",
+      "noResults": "Nada por aqui ainda.",
+      "tryAgain": "Tentar de novo",
+      "goBack": "Voltar",
+      "viewMore": "Ver mais",
+      "viewAll": "Ver tudo"
+    },
+    "punctuation": {
+      "endingPeriods": "Optional in single-line headlines, required in paragraphs",
+      "ellipsis": "Always typographic … not three dots ...",
+      "ranges": "use en-dash – not hyphen -"
+    },
+    "numbers": {
+      "currency": "R$ 1.234,56 (BR format)",
+      "dates": "15 mar 2026, 08:00",
+      "duration": "~6h de viagem",
+      "distance": "450 km",
+      "ratings": "★ 4.6 (152 avaliações)"
+    },
+    "errorMessages": {
+      "validationStructure": "[O que está errado]. [Como corrigir].",
+      "examples": [
+        "CPF inválido. Verifique os números digitados.",
+        "Data muito próxima. A viagem precisa ser pelo menos amanhã.",
+        "Cidade não encontrada. Tente São Paulo, Rio, BH ou outra capital."
+      ]
+    }
+  },
+
+  "doNotList": [
+    "Don't use grey neutrals in shadows — always navy-tinted",
+    "Don't mix more than 2 colors in a single title (navy + green only)",
+    "Don't use uppercase for body paragraphs",
+    "Don't put green on text smaller than 18px (or 14px bold) without testing contrast",
+    "Don't render bare placeholder spinners — use structural skeletons",
+    "Don't use rotated cards in transactional product UI (forms, dashboards) — only marketing",
+    "Don't write 'Click here' or 'Insira seu...' — use journey verbs and direct labels",
+    "Don't use the descriptor 'Fretamento Inteligente' isolated — always with logo",
+    "Don't apply 3D effects, gradients, drop shadows, or bevels to the logo",
+    "Don't use grey hover states on logos — use color variants or opacity",
+    "Don't use stock photos with exaggerated retouching",
+    "Don't put the journey tag (Buscou → Encontrou → Viajou) more than once per view",
+    "Don't use blueprint grid in dashboards or tables — visual fatigue",
+    "Don't render frame-corner brackets around small elements — minimum 200px on each side",
+    "Don't break the bicolor pattern by splitting colors within a single word",
+    "Don't use spinner-only loading — always pair with structural skeleton or label",
+    "Don't auto-play carousels without user-pause control",
+    "Don't use modal for non-blocking confirmations — prefer toast with undo when possible"
+  ],
+
+  "accessibility": {
+    "wcagLevel": "AA",
+    "rules": [
+      "All interactive elements must have visible focus state (green ring shadow-focus)",
+      "Touch targets minimum 44×44px",
+      "Color is never the sole indicator (always pair with icon or label)",
+      "Form errors announced via aria-live='polite'",
+      "Modals trap focus and restore on close",
+      "Skip-link to main content on every page",
+      "All images with semantic value have alt text in pt-BR",
+      "Decorative images have alt=''",
+      "All form inputs have associated <label>",
+      "Buttons describe their action ('Solicitar reserva', not 'OK')",
+      "Heading hierarchy never skipped (h1 → h2 → h3)",
+      "Reduced motion respected via prefers-reduced-motion media query"
+    ],
+    "testing": "axe-core scan in @a11y E2E suite, zero violations of severity 'serious' or higher"
+  }
+}

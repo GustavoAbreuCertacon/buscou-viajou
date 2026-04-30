@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 3000 1000" preserveAspectRatio="xMidYMid meet">
+  <defs>
+    <!--
+      Mask cria gap transparente em torno do checkmark verde onde ele
+      intersecta o B e o V — geometria integrada conforme manual da marca.
+    -->
+    <mask id="checkmark-slice">
+      <rect x="0" y="0" width="100%" height="100%" fill="white" />
+      <path d="M 80 620 L 280 820 L 920 180 L 860 120 L 270 710 L 140 580 Z"
+            fill="black"
+            stroke="black"
+            stroke-width="28"
+            stroke-linejoin="round" />
+    </mask>
+
+    <style>
+      .wordmark {
+        font-family: 'Gotham', 'Poppins', 'Helvetica Neue', Helvetica, sans-serif;
+        font-weight: 800;
+        font-size: 260px;
+        letter-spacing: -0.01em;
+        text-rendering: geometricPrecision;
+      }
+      .descriptor {
+        font-family: 'Gotham', 'Poppins', 'Helvetica Neue', Helvetica, sans-serif;
+        font-weight: 500;
+        font-size: 84px;
+        letter-spacing: 0.05em;
+        text-rendering: geometricPrecision;
+      }
+    </style>
+  </defs>
+
+  <!-- ============================================================ -->
+  <!-- SYMBOL LOCKUP (BV MONOGRAM)                                  -->
+  <!-- ============================================================ -->
+  <g>
+    <!-- B & V em navy com mask removendo a área onde checkmark passa -->
+    <g mask="url(#checkmark-slice)" fill="#0B2A43">
+      <!-- Letra B -->
+      <path d="M 150 250
+               L 360 250
+               C 450 250, 460 300, 460 370
+               C 460 430, 430 470, 390 485
+               C 480 500, 490 550, 490 625
+               C 490 700, 460 750, 360 750
+               L 150 750
+               Z
+               M 250 340
+               V 460
+               L 350 460
+               C 380 460, 380 340, 350 340
+               Z
+               M 250 540
+               V 660
+               L 360 660
+               C 400 660, 400 540, 360 540
+               Z" />
+
+      <!-- Letra V -->
+      <path d="M 510 250
+               L 620 250
+               L 690 550
+               L 760 250
+               L 870 250
+               L 740 750
+               L 640 750
+               Z" />
+    </g>
+
+    <!-- Checkmark verde integrado -->
+    <path d="M 80 620
+             L 280 820
+             L 920 180
+             L 860 120
+             L 270 710
+             L 140 580
+             Z"
+          fill="#2B9366" />
+  </g>
+
+  <!-- ============================================================ -->
+  <!-- TEXT LOCKUP                                                  -->
+  <!-- ============================================================ -->
+
+  <!-- Wordmark "BuscouViajou" — Buscou navy, Viajou green -->
+  <text x="1050" y="550" class="wordmark">
+    <tspan fill="#0B2A43">Buscou</tspan><tspan fill="#2B9366">Viajou</tspan>
+  </text>
+
+  <!-- Descritor -->
+  <text x="1060" y="705" class="descriptor" fill="#0B2A43">
+    Fretamento Inteligente
+  </text>
+</svg>

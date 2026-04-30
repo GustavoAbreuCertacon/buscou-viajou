@@ -1,0 +1,41 @@
+# Local development artifacts
+node_modules/
+.DS_Store
+*.log
+
+# Environment files (NUNCA commitar)
+.env
+.env.local
+.env.*.local
+.env.production
+
+# Build outputs
+dist/
+.next/
+out/
+build/
+*.tsbuildinfo
+
+# Editor
+.vscode/
+.idea/
+
+# Tests
+coverage/
+playwright-report/
+test-results/
+
+# Playwright MCP (logs e snapshots de sessões locais)
+.playwright-mcp/
+
+# Histórico de conversas / contexto local
+conversa.txt
+
+# Screenshots soltos na raiz (sessões manuais, não fazem parte do código)
+/*.jpeg
+/*.png
+/*.jpg
+
+# Supabase CLI
+supabase/.temp/
+supabase/.branches/

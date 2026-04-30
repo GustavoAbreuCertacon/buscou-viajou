@@ -1,0 +1,238 @@
+/* ==========================================================================
+   Buscou Viajou — Design Tokens (CSS Custom Properties)
+   Derivado do Manual da Marca v1
+   ========================================================================== */
+
+/* ==========================================================================
+   FONTES
+   ========================================================================== */
+
+/* Gotham — fontes locais (servidas em /fonts/gotham/) */
+@font-face {
+  font-family: 'Gotham';
+  src: url('/fonts/gotham/gothamthin-webfont.woff2') format('woff2');
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Gotham';
+  src: url('/fonts/gotham/gothamxlight-webfont.woff2') format('woff2');
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Gotham';
+  src: url('/fonts/gotham/gothamlight-webfont.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Gotham';
+  src: url('/fonts/gotham/gothambook-webfont.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Gotham';
+  src: url('/fonts/gotham/gothammedium-webfont.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Gotham';
+  src: url('/fonts/gotham/gothambold-webfont.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Gotham';
+  src: url('/fonts/gotham/gothamblack-webfont.woff2') format('woff2');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Gotham';
+  src: url('/fonts/gotham/gothamultra-webfont.woff2') format('woff2');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Gotham';
+  src: url('/fonts/gotham/gothambookitalic-webfont.woff2') format('woff2');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Gotham';
+  src: url('/fonts/gotham/gothambolditalic-webfont.woff2') format('woff2');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Hind (corpo) via Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Hind:wght@300;400;500;600;700&display=swap');
+
+:root {
+  /* ==========================================================================
+     CORES — OFICIAIS
+     ========================================================================== */
+  --bv-color-navy:  #0B2A43;
+  --bv-color-green: #2B9366;
+
+  /* CORES — NEUTRAS */
+  --bv-color-white:     #FFFFFF;
+  --bv-color-black:     #000000;
+  --bv-color-bg:        #F1F5F6;
+  --bv-color-grid-line: #E1E7EA;
+
+  /* ESCALA NAVY */
+  --bv-navy-50:  #E7ECF0;
+  --bv-navy-100: #CED9E1;
+  --bv-navy-200: #9DB3C3;
+  --bv-navy-300: #6C8DA6;
+  --bv-navy-400: #3B6788;
+  --bv-navy-500: #0B2A43;
+  --bv-navy-600: #092336;
+  --bv-navy-700: #071B2A;
+  --bv-navy-800: #04131D;
+  --bv-navy-900: #020810;
+
+  /* ESCALA GREEN */
+  --bv-green-50:  #E4F4EC;
+  --bv-green-100: #C9E9D9;
+  --bv-green-200: #95D3B3;
+  --bv-green-300: #60BC8C;
+  --bv-green-400: #3FA675;
+  --bv-green-500: #2B9366;
+  --bv-green-600: #237652;
+  --bv-green-700: #1A583E;
+  --bv-green-800: #123B29;
+  --bv-green-900: #091D14;
+
+  /* SEMÂNTICAS */
+  --bv-success: var(--bv-color-green);
+  --bv-info:    var(--bv-color-navy);
+  --bv-warning: #E0A23B;
+  --bv-danger:  #C64343;
+
+  /* TEXTO */
+  --bv-text-primary:     var(--bv-color-navy);
+  --bv-text-secondary:   rgba(11, 42, 67, 0.72);
+  --bv-text-accent:      var(--bv-color-green);
+  --bv-text-inverse:     var(--bv-color-white);
+  --bv-text-placeholder: rgba(11, 42, 67, 0.48);
+
+  /* SUPERFÍCIES */
+  --bv-bg-surface:       var(--bv-color-white);
+  --bv-bg-canvas:        var(--bv-color-bg);
+  --bv-bg-brand:         var(--bv-color-navy);
+  --bv-bg-accent:        var(--bv-color-green);
+
+  /* TIPOGRAFIA */
+  --bv-font-heading: 'Gotham', 'Helvetica Neue', Arial, sans-serif;
+  --bv-font-body:    'Hind', 'Helvetica Neue', Arial, sans-serif;
+
+  --bv-fw-regular:  400;
+  --bv-fw-medium:   500;
+  --bv-fw-semibold: 600;
+  --bv-fw-bold:     700;
+  --bv-fw-black:    800;
+  --bv-fw-ultra:    900;
+
+  --bv-fs-display: 3.5rem;
+  --bv-fs-h1:      2.5rem;
+  --bv-fs-h2:      2rem;
+  --bv-fs-h3:      1.5rem;
+  --bv-fs-h4:      1.25rem;
+  --bv-fs-body-lg: 1.125rem;
+  --bv-fs-body:    1rem;
+  --bv-fs-body-sm: 0.875rem;
+  --bv-fs-caption: 0.75rem;
+
+  --bv-lh-tight:   1.1;
+  --bv-lh-snug:    1.25;
+  --bv-lh-normal:  1.5;
+  --bv-lh-relaxed: 1.75;
+
+  /* ESPAÇAMENTO 8pt */
+  --bv-space-0: 0;
+  --bv-space-1: 0.25rem;
+  --bv-space-2: 0.5rem;
+  --bv-space-3: 0.75rem;
+  --bv-space-4: 1rem;
+  --bv-space-5: 1.5rem;
+  --bv-space-6: 2rem;
+  --bv-space-7: 3rem;
+  --bv-space-8: 4rem;
+  --bv-space-9: 6rem;
+
+  /* RAIOS */
+  --bv-radius-none: 0;
+  --bv-radius-sm:   4px;
+  --bv-radius-md:   8px;
+  --bv-radius-lg:   16px;
+  --bv-radius-pill: 9999px;
+
+  /* SOMBRAS */
+  --bv-shadow-sm:    0 1px 2px rgba(11, 42, 67, 0.06);
+  --bv-shadow-md:    0 4px 12px rgba(11, 42, 67, 0.08);
+  --bv-shadow-lg:    0 12px 32px rgba(11, 42, 67, 0.12);
+  --bv-shadow-focus: 0 0 0 3px rgba(43, 147, 102, 0.35);
+
+  /* BORDAS */
+  --bv-border-thin:  1px;
+  --bv-border-base:  2px;
+  --bv-border-thick: 3px;
+
+  /* GRID */
+  --bv-container: 1200px;
+  --bv-gutter:    24px;
+
+  /* MOTION */
+  --bv-motion-fast: 150ms;
+  --bv-motion-base: 250ms;
+  --bv-motion-slow: 400ms;
+  --bv-motion-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* ============================================================================
+   UTILITÁRIOS DE MARCA
+   ============================================================================ */
+
+.bv-canvas {
+  background-color: var(--bv-color-bg);
+  background-image:
+    linear-gradient(to right,  var(--bv-color-grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--bv-color-grid-line) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+.bv-frame-corner {
+  position: relative;
+}
+.bv-frame-corner::before,
+.bv-frame-corner::after {
+  content: '';
+  position: absolute;
+  width: 56px;
+  height: 56px;
+  border: 2px solid var(--bv-color-navy);
+}
+.bv-frame-corner::before {
+  top: 0; left: 0;
+  border-right: 0; border-bottom: 0;
+}
+.bv-frame-corner::after {
+  bottom: 0; right: 0;
+  border-left: 0; border-top: 0;
+}

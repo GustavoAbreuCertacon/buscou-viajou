@@ -1,0 +1,36 @@
+- generic [active] [ref=e1]:
+  - link "Pular para o conteúdo" [ref=e2] [cursor=pointer]:
+    - /url: "#main"
+  - banner [ref=e3]:
+    - generic [ref=e4]:
+      - link "Buscou Viajou — Home" [ref=e5] [cursor=pointer]:
+        - /url: /
+      - navigation "Navegação principal" [ref=e8]
+      - generic [ref=e11]
+  - main [ref=e14]:
+    - generic [ref=e16]:
+      - generic [ref=e17]
+      - form "Buscar viagens" [ref=e31]
+      - generic [ref=e67]
+    - generic [ref=e81]:
+      - heading "Em 3 passos. Sem complicação." [level=2] [ref=e82]
+      - paragraph [ref=e83]: Buscar, encontrar e viajar nunca foi tão simples.
+      - generic [ref=e84]
+    - generic [ref=e98]:
+      - heading "Princípios que nos guiam." [level=2] [ref=e99]
+      - paragraph [ref=e100]: Três valores que orientam cada decisão de produto.
+      - generic [ref=e101]
+    - generic [ref=e124]:
+      - heading "Pronto pra primeira viagem?" [level=2] [ref=e125]
+      - paragraph [ref=e126]: Encontre o veículo certo agora mesmo. Sem cadastro pra buscar.
+      - link "Buscar viagens" [ref=e127] [cursor=pointer]:
+        - /url: "#top"
+      - list "Buscou, encontrou, viajou" [ref=e129]
+  - contentinfo [ref=e139]:
+    - generic [ref=e140]:
+      - generic [ref=e141]
+      - generic [ref=e183]
+  - region "Notifications alt+T"
+  - button "Open Next.js Dev Tools" [ref=e191] [cursor=pointer]:
+    - img [ref=e192]
+  - alert [ref=e195]

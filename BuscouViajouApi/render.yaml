@@ -1,0 +1,38 @@
+# Render Blueprint — deploy automático a partir deste arquivo
+# Documentação: https://render.com/docs/blueprint-spec
+#
+# Como usar:
+# 1. Push deste repo pro GitHub
+# 2. No Render: New > Blueprint > Conectar repo
+# 3. Render lê este arquivo e cria o serviço
+# 4. Adicionar SUPABASE_SERVICE_ROLE_KEY manualmente em Environment
+
+services:
+  - type: web
+    name: buscou-viajou-api
+    runtime: node
+    region: oregon              # ou frankfurt, ohio, singapore
+    plan: free                  # 750h/mês free, cold start ~30s após 15min inativo
+    rootDir: BuscouViajouApi
+    buildCommand: npm install && npm run build
+    startCommand: node dist/main.js
+    healthCheckPath: /v1/health
+    autoDeploy: true            # deploy a cada push na main
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3001
+      - key: SUPABASE_URL
+        value: https://cscblvcqjwxmgzalowop.supabase.co
+      - key: SUPABASE_ANON_KEY
+        # Substituir pela anon key real (pública, OK estar no yaml)
+        value: REPLACE_WITH_ANON_KEY
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        # NÃO COLOCAR aqui — adicionar manualmente no dashboard do Render como
+        # Secret. Render Blueprint trata "sync: false" como "preencher manualmente".
+        sync: false
+      - key: CORS_ORIGIN
+        # URL do frontend deployado. Atualizar após primeiro deploy do Vercel.
+        # Exemplo: https://buscou-viajou.vercel.app
+        sync: false
